@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "Guide NET Core";
+}
+
+<br />
+
+<h3 id="so-how-do-i-get-started-in-net-core-development">So How Do I Get Started in .NET Core Development?</h3>
+<p>
+    The first thing you’ll need is the SDK. You’ll only need to go and get this if you’re not running Visual Studio 2017
+    Update 2 (which is only available for Windows 10), as it’s one of the installation options. It’s available for
+    Windows, MacOS, and most distributions of Linux.
+</p>
+<br />
+<p><img class="image mobile-fit" src="~/images/installs.png" /></p>
+<br />
+<p>
+    Heading over to <a href="https://dot.net/core">https://dot.net/core</a> is the first thing that you’ll want to do.
+    The site should detect your operating system and give you a page with information on how to install it for your
+    setup.
+</p>
+<p>
+    Once you’ve got the SDK downloaded and installed, you can head over to the terminal (I tend not to call it the
+    command prompt) and issue the following command:
+</p>
+<pre>&gt; dotnet &ndash;version
+</pre>
+<p>you should get something along the lines of:</p>
+<pre>1.0.4
+</pre>
+<p>
+    as a response (don’t worry if the version number is different, it’s just an example). This means that you’ve
+    successfully installed the .NET Core SDK.
+</p>
+<p>
+    The next thing you’ll need is an editor. I’m one of those strange .NET developers who doesn’t run Windows at home (I
+    run an Ubuntu PC and a have a Mac laptop), so I use <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+    as my editor/IDE. It’s extremely lightweight, fast, and open source. Oh, and it’s made my Microsoft.
+</p>
+<p>
+    If you go down the VS Code route, I’d recommend installing the <a href="http://www.omnisharp.net/#integrations">OmniSharp</a> extension to get full C# support.
+</p>
+<br />
+<h4 id="my-first-net-core-application">My First .NET Core Application</h4>
+<p>
+    Now that you have an editor and the SDK, we need to build something. Head back to the terminal and issue the
+    following command:
+</p>
+<pre>&gt; dotnet new console &ndash;name consoleTest</pre>
+<br />
+<p>
+    <img class="image mobile-fit" src="~/images/vscode.png" />
+</p>
+<br />
+<p>
+    This will create a directory called consoleTest and a set of subdirectories within it with the code for a basic
+    console application.
+</p>
+<p>Within the consoleTest directory you’ll find two files:</p>
+<ul>
+    <li>consoleTest.csproj</li>
+    <li>Program.cs</li>
+</ul>
+<br />
+<h4 id="consoletestcsproj">consoleTest.csproj</h4>
+<p>
+    The csproj contains all of the information that MSBuild (more on that in a moment) needs to know in order to build
+    the application. Let’s take a quick look at it:
+</p>
+<pre>&lt;Project Sdk=&ldquo;Microsoft.NET.Sdk&rdquo;&gt;</p>
+
+<p>&lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;netcoreapp1.1&lt;/TargetFramework&gt;
+  &lt;/PropertyGroup&gt;</p>
+
+<p>&lt;/Project&gt;
+</pre>
+<p>
+    This is one of the simplest csproj’s you’ll ever see as a .NET Core developer. The first thing it does is tell
+    MSBuild to use the .NET Sdk to build the application.
+</p>
+<p>Two things:</p>
+<ul>
+    <li>MSBuild is short for Microsoft Build Engine and is an ochestrator.</li>
+</ul>
+<p>
+    This means that it brings together all sorts of tools which will be used to build the app. Things like Roslyn (the C#
+    compiler), command line tools, NuGet package manager; all of that great stuff. It then uses all of these tools to
+    process your source code and build a set of binaries.
+</p>
+<ul>
+    <li>.NET Sdk</li>
+</ul>
+<p>This one is a little weird, right? We’re building a .NET Core app, so why are we using the .NET Sdk?</p>
+<p>
+    Well, taking a look at the source for <a href="https://github.com/dotnet/sdk/tree/master/src/Tasks/Microsoft.NET.Build.Tasks/build">Microsoft.NET.Sdk</a>
+    (I did say that .NET Core was entirely open source, right?), we can see that it’s part of the <a href="https://github.com/dotnet/sdk">dotnet sdk repository</a>, which provides:
+</p>
+<blockquote>
+    <p>Core functionality needed to create .NET Core projects, that is shared between Visual Studio and CLI</p>
+</blockquote>
+<p>
+    In fact, this is a NuGet package and needs to be restored before we can build the application (more on that in a
+    second).
+</p>
+<p>Next is this section:</p>
+<pre>  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;netcoreapp1.1&lt;/TargetFramework&gt;
+  &lt;/PropertyGroup&gt;
+</pre>
+<p>
+    Here we’re telling MSBuild to make an executable binary file, and that it should use netcoreapp1.1 as it’s framework.
+</p>
+<p>
+    This is where the confusion sets in again. netcoreapp1.1 is a framework; but .NET Core is a framework too, right?
+    I’ll let Microsoft clear this up for us:
+</p>
+<blockquote>
+    <p>
+        The terms framework and platform are sometimes confusing given how they’re used in phrases and their context. For
+        example, you’ll see .NET Core described as a framework in the context of building apps and libraries and also
+        described as a platform in the context of where app and library code is executed. A computing platform describes
+        where and how an application is run. Since .NET Core executes code with the .NET Core Common Language Runtime
+        (CoreCLR), it’s also a platform. The same is true of the .NET Framework, which has the Common Language Runtime
+        (CLR) to execute app and library code that was developed with the .NET Framework’s framework objects, methods,
+        and tools.
+    </p>
+    <p>
+        The objects and methods of frameworks are called Application Programming Interfaces (APIs). Framework APIs are
+        used in Visual Studio, Visual Studio for Mac, Visual Studio Code, and other Integrated Development Environments
+        (IDEs) and editors to provide you with the correct set of objects and methods for development. Frameworks are
+        also used by NuGet for the production and consumption of NuGet packages to ensure that you produce and use
+        appropriate packages for the frameworks that you target in your app or library.
+    </p>
+    <p>
+        When you target a framework or target several of them, you’ve decided which sets of APIs and which versions of
+        those APIs you’d like to use. Frameworks are referenced in several ways: by product name, by long or short-form
+        framework names, and by family.
+    </p>
+</blockquote>
+<p>
+    (the above was taken from <a href="https://docs.microsoft.com/en-us/dotnet/standard/frameworks">
+        The page describing
+        the term frameworks
+    </a> at Microsoft’s .NET Core documentation)
+</p>
+<p>
+    netcoreapp1.1 is also related to .NET Standard version 1.6 (which can be seen at the above linked page). This means
+    that we have access to all of the APIs which .NET Standard 1.6 guarantees will be available, regardless of the host
+    operating system which our application will run on.
+</p>
+<p>
+    (Again, I’d recommend taking a look at my post on <a href="https://dotnetcore.gaprogman.com/2016/11/24/net-standard-what-it-is-and-how-it-applies-to-net-core/">
+        .NET
+        Standard
+    </a> for a much more in depth description)
+</p>
+<h4 id="programcs">Program.cs</h4>
+<p>
+    This is where all of our code lives. If you’re familiar with C# (or even with other C-based languages, including
+    Java) then this should be pretty easy to read.
+</p>
+<pre>using System;</p>
+
+<p>namespace consoleTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(&ldquo;Hello World!&rdquo;);
+        }
+    }
+}
+</pre>
+<p>
+    If you’re not familiar with C#’s syntax, then there are a tonne of resources out there for learning C#. I’d recommend
+    <a href="https://mva.microsoft.com/en-us/training-courses/c-fundamentals-for-absolute-beginners-16169">
+        “C#
+        fundamentals for absolute beginners”
+    </a> as it’s on Microsoft’s Virtual Academy, and it’s free.
+</p>
+<h4 id="packages">Packages</h4>
+<p>I’ve already mentioned that we need to restore packages.</p>
+<p>
+    Microsoft have taken the idea of Ruby gems and expanded it - to be fair, they’re not the only folks to have done this
+    - and created a service called NuGet (which is pronounced “New Get”). NuGet hosts packages of code (usually
+    libraries) which your application can consume, in order to make developing your app faster. If Ruby isn’t your
+    thing, then you must have heard of npm right? NuGet is a little like npm (but without any of that left-pad
+    nonsense).
+</p>
+<p>
+    In order to build our .NET Core application, we need to restore any NuGet packages that we rely on. We currently rely
+    on the System package, do let’s restore that:
+</p>
+<pre>&gt; dotnet restore
+</pre>
+<p>
+    This will spawn a process which will look through the source code for our application and download all of the
+    packages necessary for building the application. Which, it turns out, is quite a lot. To see just how many packages
+    we need to restore, delete the obj directory that .NET Core creates for us (it will be in the same directory as the
+    source code) and attempt to build the application:
+</p>
+<pre>&gt; dotnet build
+</pre>
+<p>You’ll get a handful of wonderful red error messages along the lines of:</p>
+<pre> error CS0400: The type or namespace name &lsquo;System&rsquo; could not be found in the global namespace (are you missing an assembly reference?)
+</pre>
+<p>So we’d better re-restore our packages and carry on.</p>
+<p>
+    As a side note about packages: the contents of the packages are downloaded to a special directory on your machine
+    called .nuget/packages. This directory is found in your user profile area (~ on Unix like machines, and
+    C:\users\user.name on Windows)
+</p>
+<h4 id="running-the-application">Running the Application</h4>
+<p>
+    Once we’ve restored the packages for our application, we can build and run it. In .NET Core 1.x these were two
+    separate actions, aka:
+</p>
+<pre>&gt; dotenet build
+&gt; dotnet run
+</pre>
+<p>But in .NET Core 2.x, the same can be achieved by running:</p>
+<pre>&gt; dotnet run
+</pre>
+<p>Doing this should produce terminal output similar to this:</p>
+<pre>&gt; dotnet build
+Microsoft &reg; Build Engine version 15.1.1012.6693
+Copyright &copy; Microsoft Corporation. All rights reserved.</p>
+
+<p>consoleTest -&gt; /Code/consoleTest/bin/Debug/netcoreapp1.1/consoleTest.dll</p>
+
+<p>Build succeeded.
+    0 Warning(s)
+    0 Error(s)</p>
+
+<p>Time Elapsed 00:00:02.16
+</pre>
+<p>Our application just built successfully. Let’s try running it:</p>
+<pre>&gt; dotnet run
+Hello World!
+</pre>
+<p>
+    We can take the consoleTest.dll file and run it ANYWHERE which has .NET Core installed, including Linux distributions
+    or MacOS.
+</p>
+<p>To do that, we just bring up the terminal wherever we paste the DLL and issue the:</p>
+<pre>&gt; dotnet run
+</pre>
+<p>
+    command, and .NET Core will load and run the application for us. Even if it was built on Linux but run on Windows.
+</p>
+
+<br />
+
+<p>That’s pretty impressive.</p>

@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Docker";
+}
+
+<h2 id="what-is-docker">What is Docker?</h2>
+
+<p>Docker is a new technology that allows development teams to build, manage, and secure apps anywhere.</p>
+
+<p>It&rsquo;s not possible to explain what Docker is without explaining what containers are, so let&rsquo;s look at a quick explanation of containers and how they work.</p>
+
+<br />
+<blockquote>
+    <p>A container is a special type of process that is isolated from other processes.  Containers are assigned resources that no other process can access, and they cannot access any resources not explicitly assigned to them.</p>
+</blockquote>
+<br />
+
+<h3> <em> <id="so-how-do-i-get-started-in-net-core-development"><a href="DockerInstall" target="_blank">Guide to install Docker</a></em></h3>
+
+<br />
+
+<p>So what&rsquo;s the big deal?</p>
+
+<p>Processes that are not &ldquo;containerized&rdquo; can ask the operating system for access to <em>any</em> file on disk or <em>any</em> network socket.</p>
+
+<p>Until containers became widely available, there was no reliable, guaranteed way to isolate a process to its own set of resources. A properly functioning container has <em>absolutely no way</em> to reach outside its resource &ldquo;sandbox&rdquo; to touch resources that were not explicitly assigned to it.</p>
+
+<p>For example, two containers running on the same computer might as well be on two completely different computers, miles away from each other. They are entirely and effectively isolated from each other.</p>
+
+<p>This isolation has several advantages:</p>
+
+<ul>
+    <li><p>Two containerized processes can run side-by-side on the same computer, but they can&rsquo;t interfere with each other.</p></li>
+
+    <li><p>They can&rsquo;t access each other&rsquo;s data unless explicitly configured to do so.</p></li>
+
+    <li><p>Two different applications can run containers on the same hardware with confidence that their processes and data are secure.</p></li>
+
+    <li><p>Shared hardware means less hardware. Gone are the days when a company needs thousands of servers to run applications. That hardware can be shared between different business units or entirely different enterprise clients. The result is massive new economies of scale for private and public centers alike.</p></li>
+</ul>
+
+<br />
+
+<h2 id="docker-explained">Docker explained</h2>
+
+<p>Now that you know what containers are, let&rsquo;s get to Docker.</p>
+
+<br />
+<blockquote>
+    <p>Docker is both a company and a product.  Docker Inc. makes Docker, the container toolkit.</p>
+</blockquote>
+<br />
+
+<p>Containers aren&rsquo;t a singular technology. They are a collection of technologies that have been developed over more than ten years. The features of Linux (such as namespaces and cgroups) have been available for quite some time — since about 2008.</p>
+
+<p>Why, then have containers not been used all that time?</p>
+
+<p>The answer is that very few people knew how to <em>make</em> them. Only the most powerful Level-20 Linux Systems Developer Warrior Mage understood all the various technologies needed to create a container.</p>
+
+<p>In those early days, willing to do the work to understand them, let alone creating containers, was a complex chore. The stakes are high — getting it wrong turns the benefits of containers to liabilities.</p>
+
+<br />
+<blockquote>
+    <p>If containers don&rsquo;t <em>contain,</em> they can become the root cause of the latest Hacker News security breach headline.</p>
+</blockquote>
+<br />
+
+<p>The masses needed consistent, reliable container creation before containers could go mainstream.</p>
+
+<p><em>Enter Docker Inc.</em></p>
+
+<p>The primary features of Docker are:</p>
+
+<ul>
+    <li>The Docker command-line interface (CLI)</li>
+    <li>The Docker Engine</li>
+</ul>
+
+<p>Docker made it easier to create containers by &ldquo;wrapping&rdquo; the complexity of the underlying OS syscalls needed to make them work. Docker&rsquo;s popularity snowballed, to put it mildly.</p>
+
+<p>In March 2013, the creator of Docker, dotCloud, renamed itself to Docker Inc. and open-sourced Docker. In just a few years, containers have made a journey from relative obscurity, to the transformation of an industry. Docker&rsquo;s impact rivals the introduction of Virtual Machines in the early 2000s.</p>
+
+<br />
+
+<h2 id="why-is-docker-so-popular-and-why-the-rise-of-containers">Why is Docker so popular and why the rise of containers?</h2>
+
+<p>Docker is popular because of the possibilities it opens for software delivery and deployment. Many common problems and inefficiencies are resolved with containers.</p>
+
+<p>The six main reasons for Docker&rsquo;s popularity are:</p>
+
+<h3 id="1-ease-of-use">1. Ease of use</h3>
+
+<p>A large part of Docker&rsquo;s popularity is how easy it is to use. Docker can be learned quickly, mainly due to the many resources available to learn how to create and manage containers. Docker is open-source, so all you need to get started is a computer with an operating system that supports Virtualbox, Docker for Mac/Windows, or supports containers natively, such as Linux.</p>
+
+<h3 id="2-faster-scaling-of-systems">2. Faster scaling of systems</h3>
+
+<p>Containers allow much more work to be done by far less computing hardware. In the early days of the Internet, the only way to scale a website was to buy or lease more servers. The cost of popularity was bound, linearly, to the cost of scaling up. Popular sites became victims of their own success, shelling out tens of thousands of dollars for new hardware. Containers allow data center operators to cram far more workloads into less hardware. Shared hardware means lower costs. Operators can bank those profits or pass the savings along to their customers.</p>
+
+<h3 id="3-better-software-delivery">3. Better software delivery</h3>
+
+<p>Software delivery using containers can also be more efficient. Containers are <em>portable.</em> They are also entirely self-contained. Containers include an isolated disk volume. That volume goes with the container as it is developed and deployed to various environments. The software dependencies (libraries, runtimes, etc.) ship with the container. If a container works on your machine, it will run the same way in a Development, Staging, and Production environment. Containers can eliminate the configuration variance problems common when deploying binaries or raw code.</p>
+
+<h3 id="4-flexibility">4. Flexibility</h3>
+
+<p>Operating containerized applications is more flexible and resilient than that of non-containerized applications. <em>Container orchestrators</em> handle the running and monitoring of hundreds or thousands of containers.</p>
+
+<p>Container orchestrators are very powerful tools for managing large deployments and complex systems. Perhaps the only thing more popular than Docker right now is <a href="https://kubernetes.io/">Kubernetes</a>, currently the most popular container orchestrator.</p>
+
+<h3 id="5-software-defined-networking">5. Software-defined networking</h3>
+
+<p>Docker supports <em>software-defined networking.</em> The Docker CLI and Engine allow operators to define isolated networks for containers, without having to touch a single router. Developers and operators can design systems with complex network topologies and define the networks in configuration files. This is a security benefit, as well. An application&rsquo;s containers can run in an isolated virtual network, with tightly-controlled ingress and egress paths.</p>
+
+<h3 id="6-the-rise-of-microservices-architecture">6. The rise of microservices architecture</h3>
+
+<p><a href="https://raygun.com/blog/what-are-microservices/">The rise of microservices</a> has also contributed to the popularity of Docker. Microservices are simple functions, usually accessed via HTTP/HTTPS, that do one thing — and do it well.</p>
+
+<p>Software systems typically start as &ldquo;monoliths,&rdquo; in which a single binary supports many different system functions. As they grow, monoliths can become difficult to maintain and deploy. Microservices break a system down into simpler functions that can be deployed independently. Containers are <em>terrific</em> hosts for microservices. They are self-contained, easily deployed, and efficient.</p>
+
+<br />
+
+<h2 id="should-you-use-docker">Should you use Docker?</h2>
+
+<p>A question like this is almost always best answered with caution and circumspection. No technology is a panacea. Each technology has drawbacks, tradeoffs, and caveats.</p>
+
+<p>Having said all that&hellip;</p>
+
+<p><strong>Yes, use Docker.</strong></p>
+
+<p>I&rsquo;m making some assumptions with this answer:</p>
+
+<ol>
+    <li><p>That you develop distributed software with the intent of squeezing every last cycle of processing power and byte of RAM out of your infrastructure.</p></li>
+
+    <li><p>You&rsquo;re designing your software for high loads and performance, even if you don&rsquo;t yet have high loads or need the best performance.</p></li>
+
+    <li><p>You want to achieve high deployment velocity and reap the benefits of same. If you aspire to DevOps practices in software delivery, containers are a key tool in that toolbox.</p></li>
+
+    <li><p>You either want the benefits of containers, need them, or both. If you already run high-load, distributed, monolithic or microservice applications, you need containers. If you aspire to someday run these high-load, high-performance applications, now is the time to get started with containers.</p></li>
+</ol>
+
+<br />
+
+<h2 id="when-you-should-not-use-docker-or-containers">When you should not use Docker or containers</h2>
+
+<p>Developing, deploying, and operating software in containers is very different from traditional development and delivery. It is not without trials and tribulations.</p>
+
+<p>There are tradeoffs to be considered:</p>
+
+<h3 id="if-your-team-needs-significant-training">If your team needs significant training</h3>
+
+<p>Your team&rsquo;s existing skillset is a significant consideration. If you lack the time or resources to take up containers slowly or to bring on a consulting partner to get you ramped up, you should wait. Container development and operations is not something you want to &ldquo;figure out as you go,&rdquo; unless you move very slowly and deliberately.</p>
+
+<h3 id="when-you-have-a-high-risk-profile">When you have a high-risk profile</h3>
+
+<p>Your risk profile is another major consideration. If you are in a regulated industry, or running revenue-generating workloads, be cautious with containers. Operating containers at scale with container orchestrators is very different than for non-containerized systems. The benefits of containers come with additional complexity in the systems that deliver, operate, and monitor them.</p>
+
+<h3 id="if-you-can-t-hire-the-talent">If you can&rsquo;t hire the talent</h3>
+
+<p>For all its popularity, Docker is a very new way of developing and delivering software. The ecosystem is constantly changing, and the population of engineers who are experts in it is still relatively small. During this early stage, many companies are opting to work with Enterprise ISV partners to get started with Docker and its related systems. If this is not an option for you, you&rsquo;ll want to balance the cost of taking up Docker on your own against the potential benefits.</p>
+
+<h3 id="consider-your-system-s-complexity">Consider your system&rsquo;s complexity</h3>
+
+<p>Finally, consider your overall requirements. Are your systems sufficiently complex enough to justify the additional burden of taking on containerization? If your business is, for example, centered around creating static websites, you may just not need containers.</p>
+
+<br />
+
+<h2 id="in-conclusion-docker-is-popular-because-it-has-revolutionized-development">In conclusion, Docker is popular because it has revolutionized development</h2>
+
+<p>Docker, and the containers it makes possible, has revolutionized the software industry and in five short years their popularity as a tool and platform has skyrocketed.</p>
+
+<p>The main reason is that containers create vast economies of scale. Systems that used to require expensive, dedicated hardware resources can now share hardware with other systems. Another is that containers are self-contained and portable. If a container works on one host, it will work just as well on any other, as long as that host provides a compatible runtime.</p>
+
+<p>It&rsquo;s important to consider that Docker isn&rsquo;t a panacea (no technology is.) There are tradeoffs to consider when planning a technology strategy. Moving to containers is not a trivial undertaking.</p>
+
+<p>Consider the tradeoffs before committing to a Docker-based strategy. A careful accounting of the benefits and costs of containerization may well lead you to adopt Docker. If the numbers add up, Docker and containers have the potential to open up new opportunities for your enterprise.</p>

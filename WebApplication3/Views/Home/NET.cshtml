@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "NET Core";
+}
+<br />
+
+<h3 id="what-is-net-core">What is .NET Core?</h3>
+
+<p>
+    .NET Core is a cross platform, open source re-implementation of the .NET Framework. It is actively maintained by
+    Microsoft and a huge community of developers over on GitHub.
+</p>
+
+<p>Lets just dissect that for a moment:</p>
+
+<ul>
+    <li>cross platform</li>
+    <li>open source</li>
+    <li>GitHub</li>
+</ul>
+
+<p>
+    That’s right, Microsoft have embraced open source. Back in 2016, Microsoft bought Xamarin and began integrating it
+    into the Microsoft developer tool set. Off of the back of that, the dnx teams decided to push what were the earliest
+    versions of (what became) .NET Core to the public. The dnx work was based on the work which went into Roslyn, and
+    formed the basis for both .NET Core and ASP.NET Core (both are separate teams, but some work bleeds over).
+</p>
+
+<br />
+
+<h3 id="if-net-framework-exists-why-do-i-need-net-core">If .NET Framework Exists Why Do I Need .NET Core?</h3>
+
+<p>
+    Microsoft’s end goal is not to replace .NET Framework with .NET Core, but to add it to the .NET eco-system as an
+    alternative for developers who need to build cross platform applications.
+</p>
+<p>
+    Lets say that you are a Linux (or even MacOS) based developer and you want to try out this C# and .NET business but
+    don’t have a Windows licence.
+</p>
+<p>
+    Let’s say that you’re looking to write a micro service, but don’t want to use Node.js or any of the other
+    JavaScript-on-the-server frameworks.
+</p>
+<p>
+    Let’s say that you want to take a pre-existing MVC application written in .NET Framework and run it on a Linux box
+    (for cheaper hosting).
+</p>
+<p>Let’s say that you want the “write once, build anywhere” that Java promised, but with C#.</p>
+<p>You can achieve all of those things with .NET Core.</p>
+
+<br />
+
+<h3 id="what-can-i-build-with-net-core">What Can I Build With .NET Core?</h3>
+<p>.NET Core supports Console Applications, Web Applications (asp.net MVC, WebApi), Class Libraries and Unit Tests.</p>
+<p>
+    This doesn’t sound like a lot, but it covers most of the application types that you might want to build. You can even
+    build cross platform 3D video games with it, which is pretty neat.
+</p>
+<p>
+    It doesn’t support creation of WinForms or UWP applications. There are builds of GTK and other open source Form-like
+    libraries which support .NET Core.
+</p>
+<p>
+    However, UWP can use any libraries that are built with .NET Core as long as they explicitly target version 1.6 or
+    above of the .NET Standard.
+</p>
+
+<br />
+
+<h3 id="so-how-do-i-get-started-in-net-core-development"><a href="GuideNetCore" target="_blank">So How Do I Get Started in .NET Core Development?</a></h3>
